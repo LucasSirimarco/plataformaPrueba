@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="icon" type="image/icon" href="{{ url_for('static', filename='ico/circle.ico') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
+</head>
+<body>
+    
+    <div class="contenedor">
+        <header class="cabecera">
+            {% block home %}
+            <h1>Bienvenido {{ username }}</h1>
+            {% endblock %}
+        </header>
+        <nav class="barraNav">
+            <ul class="ul-lista">
+                <li class="lista"><a class="link" href="">Crear team</a></li>
+                <li class="lista"><a class="link" href="">Buscar team</a></li>
+                <li class="lista"><a class="link" href="">Buscar perfil</a></li>
+                <li class="lista"><a class="link" href="">Modificar perfil</a></li>
+                <li class="lista"><a class="link" href="">Contactanos</a></li>
+                <li class="lista"><a class="link" href="">Mi Club</a></li>
+                <li class="lista"><a class="link" href="">Tu Club</a></li>
+            </ul>
+        </nav>
+        <section class="contenido">
+                   <!-- Add a placeholder for the Twitch embed -->
+                    <div id="twitch-embed"></div>
+
+                    <!-- Load the Twitch embed script -->
+                    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+
+                    <!-- Create a Twitch.Player object. This will render within the placeholder div -->
+                    <script type="text/javascript">
+                    new Twitch.Player("twitch-embed", {
+                        channel: "santutu"
+                    });
+                    </script>
+                    <iframe src="https://player.twitch.tv/?channel=santutu&parent=www.example.com" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+        </section>
+        <aside class="side">
+            Sidebar
+        </aside>
+        <div class="ad">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas excepturi corporis deleniti magnam omnis? Exercitationem pariatur necessitatibus recusandae dolor suscipit ipsam corporis eum quia soluta ex, placeat id odio magnam!</div>
+        <footer class="pie">Footer</footer>
+
+    </div>
+</body>
+</html>

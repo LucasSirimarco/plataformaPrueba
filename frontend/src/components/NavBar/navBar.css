@@ -1,0 +1,12 @@
+.navBar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+.lista{
+    text-decoration: none;
+    list-style: none;
+    font-weight: 800;
+    color: azure;
+}
