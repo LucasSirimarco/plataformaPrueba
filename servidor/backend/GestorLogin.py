@@ -17,8 +17,8 @@ class GestorLogin:
     #compara los usuarios con la BD y si no estan los rechaza.
 
         try:
-            CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
-            CONEXION_DB.ejecutar("SELECT contraseña FROM login WHERE email LIKE '{}'".format(mail))
+            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
+            CONEXION_DB.ejecutar("SELECT pwd FROM login WHERE email LIKE '{}'".format(mail))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
 
@@ -35,6 +35,16 @@ class GestorLogin:
             respuesta = False
 
         finally:
+
+            # if respuesta:
+            #     CONEXION_DB.ejecutar("SELECT refreshToken FROM login WHERE email LIKE '{}'".format(mail))
+            #     refreshToken = CONEXION_DB.mostrarResultados()
+            #     print(refreshToken)
+            # else:
+            #     refreshToken = None
+            #     print(refreshToken)
+            CONEXION_DB.ejecutar("SELECT refreshtoken FROM login WHERE email LIKE '{}'".format(mail))
+            print(CONEXION_DB.mostrarResultados())
             CONEXION_DB.finalizarConexion()
             print("Devolviendo respuesta: {}".format(respuesta))
             return respuesta
@@ -42,7 +52,7 @@ class GestorLogin:
     def sign_up(self, mail, pwd):
 
         try:
-            CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',8000)
+            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
             CONEXION_DB.ejecutar("SELECT email FROM login WHERE email LIKE '{}'".format(mail))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
@@ -50,7 +60,7 @@ class GestorLogin:
             if (len(retorno) != 0):
                 raise Exception("No puedo crear una cuenta con un usuario con mail ya existente en la base de datos")
 
-            CONEXION_DB.ejecutar("INSERT INTO login (email, contraseña) VALUES ('{}','{}')".format(mail,pwd))
+            CONEXION_DB.ejecutar("INSERT INTO login (email, pwd) VALUES ('{}','{}')".format(mail,pwd))
             CONEXION_DB.commit()
             respuesta = True
 
@@ -63,6 +73,37 @@ class GestorLogin:
             print("Devolviendo respuesta: {}".format(respuesta))
             return respuesta
 
+    def agregarRefreshToken(self, mail, refreshToken):
+        try:
+            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
+            CONEXION_DB.ejecutar("SELECT email FROM login WHERE email LIKE '{}'".format(mail))
+            retorno = CONEXION_DB.mostrarResultados()
+            print(retorno)
+
+            if (len(retorno) == 0):
+                raise Exception("No encontré el mail solicitado en la base de datos")
+
+            # print(refreshToken)
+            CONEXION_DB.ejecutar("UPDATE login SET refreshtoken='{}' WHERE email='{}'".format(refreshToken,mail))
+            # CONEXION_DB.ejecutar("INSERT INTO login (refreshToken, pwd) VALUES ('{}','{}')".format(mail,pwd))
+            CONEXION_DB.commit()
+
+            respuesta = True
+
+        except Exception as e:
+            print (e)
+            respuesta = False
+
+        finally:
+
+            CONEXION_DB.ejecutar("SELECT refreshtoken FROM login WHERE email LIKE '{}'".format(mail))
+            token = CONEXION_DB.mostrarResultados()
+            CONEXION_DB.ejecutar("SELECT email FROM login WHERE email LIKE '{}'".format(mail))
+            email = CONEXION_DB.mostrarResultados()
+            CONEXION_DB.finalizarConexion()
+            # print(token)
+            print("Devolviendo respuesta: {}".format(respuesta))
+            return [respuesta,token[0][0],email[0][0]]
 '''
 def Test_Login(mail,pwd):
     print (sign_in(mail,pwd))

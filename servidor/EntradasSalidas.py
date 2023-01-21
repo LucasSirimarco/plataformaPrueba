@@ -6,8 +6,8 @@ Created on Thu Jul  7 13:19:34 2022
 
 from cmath import log
 from distutils.log import Log
-from GestorDB import GestorDB
-from GestorLogin import GestorLogin
+from backend.GestorDB import GestorDB
+from backend.GestorLogin import GestorLogin
 #import psycopg2
 
 CONEXION_LOGIN = GestorLogin()
