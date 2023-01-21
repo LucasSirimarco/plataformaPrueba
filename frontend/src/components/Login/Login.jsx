@@ -1,30 +1,33 @@
 import './login.css'
 import { useState } from 'react'
 
-
 function Login() {
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState([{}])
 
-
-const enviarFormulario = (e)=>{ 
-  e.preventDefault();
-
-  fetch('http://127.0.0.1:4005/send', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(
-      {
-        User: user,
-        Password: password
-      }
-  )
-  
-})
-console.log("Formulario Enviado")
+  const enviarFormulario = (e)=>{ 
+    e.preventDefault();
+    fetch('http://127.0.0.1:4005/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+        {
+          User: user,
+          Password: password
+        }
+  )}).then(res => {
+    console.log("Formulario Enviado")
+    return res.json()
+  }).then(data => {
+    setToken(data)
+    console.log("El token es: " + token)
+  }).catch(error => {
+    console.log("Error al obtener el token")
+  })
 }
 
 return(
