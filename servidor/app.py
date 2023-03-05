@@ -37,7 +37,11 @@ def leerObjetoLogin():
         print("Te devuelvo esto: {}".format(respuestaToken))
         if (respuestaBoolean == False):
             raise("Error al querer almacenar el refresh token")
+<<<<<<< HEAD
         response = jsonify(json.dumps({"respuestaToken":respuestaToken ,"respuestaMail" : respuestaMail}))
+=======
+        response = jsonify(json.dumps(respuestaToken + ";" + respuestaMail))
+>>>>>>> 931aa19dcd2125385ea29ed0ed200c3afa3b6d07
         # responseMail = jsonify(json.dumps(respuestaMail))
         print(response)
         response.headers["Authorization"] = "Bearer " + respuestaToken
