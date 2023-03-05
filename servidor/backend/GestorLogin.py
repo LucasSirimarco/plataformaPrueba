@@ -17,11 +17,9 @@ class GestorLogin:
     #compara los usuarios con la BD y si no estan los rechaza.
 
         try:
-<<<<<<< HEAD
+
             CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
-=======
-            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
->>>>>>> 931aa19dcd2125385ea29ed0ed200c3afa3b6d07
+
             CONEXION_DB.ejecutar("SELECT pwd FROM login WHERE email LIKE '{}'".format(mail))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
@@ -56,11 +54,11 @@ class GestorLogin:
     def sign_up(self, mail, pwd):
 
         try:
-<<<<<<< HEAD
+
             CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
-=======
-            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
->>>>>>> 931aa19dcd2125385ea29ed0ed200c3afa3b6d07
+
+            CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
+
             CONEXION_DB.ejecutar("SELECT email FROM login WHERE email LIKE '{}'".format(mail))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
@@ -83,11 +81,11 @@ class GestorLogin:
 
     def agregarRefreshToken(self, mail, refreshToken):
         try:
-<<<<<<< HEAD
+
             CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
-=======
-            CONEXION_DB.iniciarConexion('localhost','postgres','asd123','postgres',1234)
->>>>>>> 931aa19dcd2125385ea29ed0ed200c3afa3b6d07
+
+            CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
+
             CONEXION_DB.ejecutar("SELECT email FROM login WHERE email LIKE '{}'".format(mail))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
@@ -116,9 +114,3 @@ class GestorLogin:
             # print(token)
             print("Devolviendo respuesta: {}".format(respuesta))
             return [respuesta,token[0][0],email[0][0]]
-'''
-def Test_Login(mail,pwd):
-    print (sign_in(mail,pwd))
-def Test_Register(mail,pwd):
-    print (sign_up(mail,pwd))
-'''

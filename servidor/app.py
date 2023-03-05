@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint,render_template,jsonify,json, request#url_for, ,redirect, flash
+from flask import Flask, Blueprint,jsonify,json, request#url_for, ,redirect, flash
 from flask_cors import CORS, cross_origin
 from backend import FuncionesBack
 from dotenv import load_dotenv
@@ -19,17 +19,10 @@ def datos():
 def leerObjetoLogin():
     jsonObjeto = request.get_json()
     respuestaLogin = FuncionesBack.sign_in(jsonObjeto)
-    # respuestaLogin = respuesta[0]
-    # respuestaRefresh = respuesta[1]
     if respuestaLogin: 
         print("Usuario Encontrado")
-        # if respuestaRefresh == None:
         respuestaToken = crearToken(data = request.get_json())
         tokenString = respuestaToken.decode()
-        # print("AAAAA")
-        # print(tokenString)
-        # tokenJSON = json.dumps(tokenString)
-        # print(tokenJSON)
         respuestaAgregarRefreshToken = FuncionesBack.almacenar_refresh_token(jsonObjeto,tokenString)
         respuestaBoolean = respuestaAgregarRefreshToken[0]
         respuestaToken = respuestaAgregarRefreshToken[1]
@@ -37,12 +30,7 @@ def leerObjetoLogin():
         print("Te devuelvo esto: {}".format(respuestaToken))
         if (respuestaBoolean == False):
             raise("Error al querer almacenar el refresh token")
-<<<<<<< HEAD
         response = jsonify(json.dumps({"respuestaToken":respuestaToken ,"respuestaMail" : respuestaMail}))
-=======
-        response = jsonify(json.dumps(respuestaToken + ";" + respuestaMail))
->>>>>>> 931aa19dcd2125385ea29ed0ed200c3afa3b6d07
-        # responseMail = jsonify(json.dumps(respuestaMail))
         print(response)
         response.headers["Authorization"] = "Bearer " + respuestaToken
         return response
@@ -51,7 +39,13 @@ def leerObjetoLogin():
         print("No se encontro el Usuario")
         response.status_code = 404
         return response
-            
+    
+@cross_origin
+@app.route("/sendRegister",methods=["POST"])
+def leerObjetoRegistro():
+    jsonObjeto = request.get_json()
+    print(jsonObjeto)
+        
 @app.route("/verify/token")
 def verificarToken():
     token = request.headers["Autorization"].split(" ")[1]
