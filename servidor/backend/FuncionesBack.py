@@ -28,6 +28,14 @@ def sign_up(objeto):
 
     return CONEXION_LOGIN.sign_up(mail,pwd)
 
+def almacenar_refresh_token(objetoUsuario, refreshToken):
+
+    mail = objetoUsuario["User"]
+
+    return CONEXION_LOGIN.agregarRefreshToken(mail,refreshToken)
+
+
+
 def Test_Login(objeto):
     print (sign_in(objeto))
 

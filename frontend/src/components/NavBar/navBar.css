@@ -1,4 +1,8 @@
 .navBar{
+    background-color: rgb(0, 0, 53);
+    color: black;
+    font-weight: 900;
+    height: 100vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -9,4 +13,16 @@
     list-style: none;
     font-weight: 800;
     color: azure;
+}
+.links:visited{
+    color: rgb(0, 0, 53);
+}
+.links{
+    text-decoration: none;
+    background: antiquewhite;
+    color: rgb(0, 0, 53);
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    border-radius: 10px;
 }

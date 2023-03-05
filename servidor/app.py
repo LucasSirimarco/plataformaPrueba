@@ -19,16 +19,29 @@ def datos():
 def leerObjetoLogin():
     jsonObjeto = request.get_json()
     respuestaLogin = FuncionesBack.sign_in(jsonObjeto)
+    # respuestaLogin = respuesta[0]
+    # respuestaRefresh = respuesta[1]
     if respuestaLogin: 
         print("Usuario Encontrado")
+        # if respuestaRefresh == None:
         respuestaToken = crearToken(data = request.get_json())
         tokenString = respuestaToken.decode()
-        tokenJSON = json.dumps(tokenString)
-        print(tokenJSON)
-        response = jsonify(tokenJSON)
-        response.headers["Authorization"] = "Bearer " + tokenString
+        # print("AAAAA")
+        # print(tokenString)
+        # tokenJSON = json.dumps(tokenString)
+        # print(tokenJSON)
+        respuestaAgregarRefreshToken = FuncionesBack.almacenar_refresh_token(jsonObjeto,tokenString)
+        respuestaBoolean = respuestaAgregarRefreshToken[0]
+        respuestaToken = respuestaAgregarRefreshToken[1]
+        respuestaMail = respuestaAgregarRefreshToken[2]
+        print("Te devuelvo esto: {}".format(respuestaToken))
+        if (respuestaBoolean == False):
+            raise("Error al querer almacenar el refresh token")
+        response = jsonify(json.dumps({"respuestaToken":respuestaToken ,"respuestaMail" : respuestaMail}))
+        # responseMail = jsonify(json.dumps(respuestaMail))
+        print(response)
+        response.headers["Authorization"] = "Bearer " + respuestaToken
         return response
-
     else:
         response = jsonify({"message":"User not found"})
         print("No se encontro el Usuario")

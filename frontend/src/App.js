@@ -1,6 +1,9 @@
 import './App.css';
 import Login from './components/Login/Login'
+import NavBar from './components/NavBar/NavBar'
+import Register from './components/Register/Register'
 import { useState, useEffect } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -17,9 +20,20 @@ function App() {
     )
   },[])
   console.log(data)
+        
 
   return (
-    <Login />
+
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar />} />
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
+    </>
+  
   )
 }
 

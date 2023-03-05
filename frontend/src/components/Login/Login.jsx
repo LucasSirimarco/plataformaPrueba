@@ -1,11 +1,14 @@
 import './login.css'
 import { useState } from 'react'
+import Cookies from "universal-cookie"
+import { Navigate } from "react-router-dom";
 
 function Login() {
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState([{}])
+  const [boleanToken, setBoleanToken] = useState(false)
 
   const enviarFormulario = (e)=>{ 
     e.preventDefault();
@@ -24,11 +27,19 @@ function Login() {
     return res.json()
   }).then(data => {
     setToken(data)
-    console.log("El token es: " + token)
+    let tokenNuevo = JSON.parse(token)
+    const cookies = new Cookies();
+    cookies.set("Token",tokenNuevo,{path:"/"});
+    console.log(tokenNuevo.respuestaToken)
+    setBoleanToken(true)
+
   }).catch(error => {
     console.log("Error al obtener el token")
+
   })
+
 }
+
 
 return(
     
@@ -58,14 +69,14 @@ return(
                 <label className='labelSession'> Mantener sesion iniciada</label>
           </div>
           <div >
-                <button className="boton" type="submit" onClick={enviarFormulario} >Ingresar</button>
+                { boleanToken ? <Navigate to="/home"/>:<button className="boton" type="submit" onClick={enviarFormulario} >Ingresar</button>}
                 <p><b>El Formulario se envio correctamente</b></p>
           </div>
           <div>
             <p className="message">¿No está registrado? <a href="register" id="crearCuenta" onclick="">Crear una cuenta</a></p>
           </div>
       </form>
-
+      
     </div>
     
 )
