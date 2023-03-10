@@ -12,7 +12,7 @@ function Login() {
 
   const enviarFormulario = (e)=>{ 
     e.preventDefault();
-    fetch('http://127.0.0.1:4005/send', {
+    fetch('http://127.0.0.1:4010/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ function Login() {
 return(
     
     <div className="loginContainer">
-          <form className="formContainer" name="sendMessage" id="contactForm" method="GET" action="/http://127.0.0.1:4005/datos">
+          <form className="formContainer" name="sendMessage" id="contactForm" method="GET" action="/http://127.0.0.1:4010/login">
           <div>
               <label className="labelForm">Usuario</label>
                 <div>

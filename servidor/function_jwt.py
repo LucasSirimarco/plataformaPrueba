@@ -5,17 +5,17 @@ from flask import jsonify
 
 def tiempoDeExpiracion(minutes: int):
     now = datetime.now()
-    newDate = now + timedelta(minutes)
+    newDate = now + timedelta(0,0,0,0,minutes)
     return newDate
 
 def crearToken(data:dict):
-    token = encode(payload={**data,"exp":tiempoDeExpiracion(2)}, key=getenv("SECRET"),algorithm="HS256")
+    token = encode(payload={**data,"exp":tiempoDeExpiracion(60)},key=getenv("SECRET"),algorithm="HS256")
     return token.encode("UTF-8")
 
 def validarToken(token, output=False):
     try:
         if output:
-            tokenValidado = decode(token, key=getenv("SECRET"), algorithms=["HS256"])
+            tokenValidado = decode(token, key=getenv("SECRET"),algorithms=["HS256"])
             print("Token Validado")
             return tokenValidado
         decode(token, key=getenv("SECRET"), algorithms=["HS256"])   

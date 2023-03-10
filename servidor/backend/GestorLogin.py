@@ -20,17 +20,17 @@ class GestorLogin:
 
             CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
 
-            CONEXION_DB.ejecutar("SELECT pwd FROM login WHERE email LIKE '{}'".format(mail))
+            CONEXION_DB.ejecutar("SELECT pwd, id, username FROM login WHERE email = '{}' AND pwd = '{}'".format(mail, pwd))
             retorno = CONEXION_DB.mostrarResultados()
             print(retorno)
 
             if (len(retorno) == 0):
-                raise Exception("No encontré el mail solicitado en la base de datos")
+                raise Exception("Credenciales incorrectas")
 
-            if (retorno[0][0] != pwd):
-                raise Exception("La contraseña ingresada no coincide")
-
-            respuesta = True
+            respuesta = {
+                "Id": retorno[0][1],
+                "Username": retorno[0][2]
+            }
 
         except Exception as e:
             print (e)
@@ -51,7 +51,7 @@ class GestorLogin:
             print("Devolviendo respuesta: {}".format(respuesta))
             return respuesta
 
-    def sign_up(self, mail, pwd):
+    def sign_up(self, mail, pwd, username):
 
         try:
 
@@ -66,7 +66,7 @@ class GestorLogin:
             if (len(retorno) != 0):
                 raise Exception("No puedo crear una cuenta con un usuario con mail ya existente en la base de datos")
 
-            CONEXION_DB.ejecutar("INSERT INTO login (email, pwd) VALUES ('{}','{}')".format(mail,pwd))
+            CONEXION_DB.ejecutar("INSERT INTO login (email, pwd, username) VALUES ('{}','{}','{}')".format(mail,pwd,username))
             CONEXION_DB.commit()
             respuesta = True
 

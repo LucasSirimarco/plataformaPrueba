@@ -16,17 +16,23 @@ CONEXION_LOGIN = GestorLogin()
 def sign_in(objeto):
     #compara los usuarios con la BD y si no estan los rechaza.
 
-    mail = objeto["User"]
+    mail = objeto["Email"]
     pwd = objeto["Password"]
 
-    return CONEXION_LOGIN.sign_in(mail,pwd)
+    loginResponse = CONEXION_LOGIN.sign_in(mail,pwd)
+
+    if(loginResponse):
+        return loginResponse
+    
+    return False
 
 def sign_up(objeto):
 
-    mail = objeto["User"]
+    mail = objeto["Email"]
     pwd = objeto["Password"]
+    username = objeto["Username"]
 
-    return CONEXION_LOGIN.sign_up(mail,pwd)
+    return CONEXION_LOGIN.sign_up(mail,pwd,username)
 
 def almacenar_refresh_token(objetoUsuario, refreshToken):
 

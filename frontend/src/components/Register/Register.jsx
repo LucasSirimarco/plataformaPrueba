@@ -14,19 +14,17 @@ function Register() {
 
   const enviarRegistro = (e)=>{
     e.preventDefault();
-    fetch('http://127.0.0.1:4005/sendRegister', {
+    fetch('http://127.0.0.1:4000/registration', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(
         {
-          User: user,
-          Password: password,
-          Mail: mail,
-          Nombres: nombres,
-          Apellido: apellido,
-          Edad: edad
+          username: user,
+          pwd: password,
+          email: mail
+
         }
   )}).then(res => {
     console.log("Registro Enviado")
@@ -46,7 +44,7 @@ function Register() {
 
   return (
     <div className="loginContainer">
-    <form className="formContainer" name="sendMessage" id="contactForm" method="POST" action="/http://127.0.0.1:4005/sendRegister">
+    <form className="formContainer" name="sendMessage" id="contactForm" method="POST" action="/http://127.0.0.1:4000/registration">
     <div>
         <label className="labelForm">Usuario</label>
           <div>
