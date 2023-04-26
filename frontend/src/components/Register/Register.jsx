@@ -13,8 +13,9 @@ function Register() {
   const [edad, setEdad] = useState('');
 
   const enviarRegistro = (e)=>{
+    // console.log("$DEBUG$");
     e.preventDefault();
-    fetch('http://127.0.0.1:4000/registration', {
+    fetch('http://127.0.0.1:4010/registration', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

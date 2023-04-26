@@ -7,7 +7,7 @@ function Login() {
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState([{}])
+  const [token, setToken] = useState()
   const [boleanToken, setBoleanToken] = useState(false)
 
   const enviarFormulario = (e)=>{ 
@@ -23,18 +23,26 @@ function Login() {
           Password: password
         }
   )}).then(res => {
-    console.log("Formulario Enviado")
+    console.log("Formulario Enviado");
     return res.json()
   }).then(data => {
     setToken(data)
-    let tokenNuevo = JSON.parse(token)
+    console.log("Debug de token 1");
+    console.log(data);
+    console.log("Debug de token 2");
+    console.log(token)
+    // let tokenNuevo = JSON.parse(token);
+    let tokenNuevo = token;
+    console.log("Debug de token");
+    console.log(token);
+    console.log("TokenNuevo");
+    console.log(tokenNuevo);
     const cookies = new Cookies();
     cookies.set("Token",tokenNuevo,{path:"/"});
     console.log(tokenNuevo.respuestaToken)
     setBoleanToken(true)
-
   }).catch(error => {
-    console.log("Error al obtener el token")
+    console.log(`Error al obtener el token, debido al error: [${error}]`)
 
   })
 

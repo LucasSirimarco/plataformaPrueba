@@ -11,6 +11,7 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 @cross_origin()
 @app.route('/registration',methods=["POST"])
 def registrarUsuario():
+    print("$DEBUG$")
     jsonObjeto = request.get_json()
     response = FuncionesBack.sign_up(jsonObjeto)
     return jsonify(response)
@@ -27,6 +28,13 @@ def leerObjetoLogin():
             "data": respuestaLogin,
             "accessToken": accessToken.decode()
         })
+        print("Token crudo")
+        print(accessToken)
+        print("Token jsonify")
+        print(response)
+        print("Token decodeado")
+        print(accessToken.decode())
+        # FuncionesBack.almacenar_refresh_token()
         response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
         return response
     else:
@@ -34,7 +42,8 @@ def leerObjetoLogin():
         print("No se encontro el Usuario")
         response.status_code = 404
         return response
-        
+    
+
 @app.route("/verify/token")
 def verificarToken():
     token = request.headers["Autorization"].split(" ")[1]

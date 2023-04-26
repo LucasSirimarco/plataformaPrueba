@@ -82,7 +82,7 @@ class GestorLogin:
     def agregarRefreshToken(self, mail, refreshToken):
         try:
 
-            CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
+            # CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
 
             CONEXION_DB.iniciarConexion('localhost','postgres','123CrackeN','postgres',5432)
 
